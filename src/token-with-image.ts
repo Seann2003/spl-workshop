@@ -12,8 +12,6 @@ import { readFileSync } from "fs";
 import { setupUmiClient } from "../utils/setupClient.ts";
 import { irysUploader } from "@metaplex-foundation/umi-uploader-irys";
 import { mplCandyMachine } from "@metaplex-foundation/mpl-candy-machine";
-import { fromWeb3JsKeypair } from "@metaplex-foundation/umi-web3js-adapters";
-import { myKeyPair } from "../utils/constant.ts";
 
 // Example metadata
 // Call upon Umi's `uploadJson` function to upload our metadata to Arweave via Irys.
@@ -21,9 +19,9 @@ import { myKeyPair } from "../utils/constant.ts";
   const { umi } = setupUmiClient();
   umi.use(mplCandyMachine()).use(irysUploader());
   const mint = generateSigner(umi);
-  const imageFile = readFileSync("./cat.png");
+  const imageFile = readFileSync("");
 
-  const umiImageFile = createGenericFile(imageFile, "cat.png", {
+  const umiImageFile = createGenericFile(imageFile, "", {
     tags: [{ name: "contentType", value: "image/png" }],
   });
 
@@ -61,11 +59,11 @@ import { myKeyPair } from "../utils/constant.ts";
     tokenStandard: TokenStandard.Fungible,
   })
     .sendAndConfirm(umi)
-    .then(() => {
+    .then((tx) => {
+      console.log("token (", mint.publicKey, ") minted");
       console.log(
-        "Some success message like: 0.00001 GOLDSOL (",
-        mint.publicKey,
-        ") minted"
+        "Transaction Hash:",
+        `https://explorer.solana.com/${tx.signature}?=cluster=devnet`
       );
     });
 })();
