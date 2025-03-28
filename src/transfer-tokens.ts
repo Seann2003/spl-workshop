@@ -17,7 +17,7 @@ const transferSplTokens = async () => {
   umi.use(mplToolbox());
 
   // The address of the Token you want to transfer.
-  const splToken = publicKey("");
+  const splToken = publicKey("GRiexnEHDcErgSJouKVba744dtqA7yuzTcGyuCdX4r6q");
 
   // The address of the wallet you want to transfer the Token to.
   const destinationWallet = publicKey(
@@ -36,34 +36,34 @@ const transferSplTokens = async () => {
     owner: destinationWallet,
   });
 
-  try {
-    const senderAccount = await getAccount(
-      connection,
-      new PublicKey(sourceTokenAccount[0])
-    );
-    console.log("Sender's ATA exists:", senderAccount.address.toBase58());
-  } catch (err) {
-    console.log(
-      "Sender does not have an Associated Token Account for this token."
-    );
-    return;
-  }
+  //   try {
+  //     const senderAccount = await getAccount(
+  //       connection,
+  //       new PublicKey(sourceTokenAccount[0])
+  //     );
+  //     console.log("Sender's ATA exists:", senderAccount.address.toBase58());
+  //   } catch (err) {
+  //     console.log(
+  //       "Sender does not have an Associated Token Account for this token."
+  //     );
+  //     return;
+  //   }
 
-  try {
-    const receiverAccount = await getAccount(
-      connection,
-      new PublicKey(destinationTokenAccount[0])
-    );
-    console.log("Receiver's ATA exists:", receiverAccount.address.toBase58());
-  } catch (err) {
-    console.log(
-      "Receiver does not have an Associated Token Account for this token yet."
-    );
-    await createAssociatedToken(umi, {
-      mint: splToken,
-      owner: destinationWallet,
-    }).sendAndConfirm(umi);
-  }
+  //   try {
+  //     const receiverAccount = await getAccount(
+  //       connection,
+  //       new PublicKey(destinationTokenAccount[0])
+  //     );
+  //     console.log("Receiver's ATA exists:", receiverAccount.address.toBase58());
+  //   } catch (err) {
+  //     console.log(
+  //       "Receiver does not have an Associated Token Account for this token yet."
+  //     );
+  //     await createAssociatedToken(umi, {
+  //       mint: splToken,
+  //       owner: destinationWallet,
+  //     }).sendAndConfirm(umi);
+  //   }
 
   const tokenBalance = await connection.getTokenAccountBalance(
     new PublicKey(sourceTokenAccount[0])

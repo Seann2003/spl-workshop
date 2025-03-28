@@ -43,25 +43,4 @@ import { irysUploader } from "@metaplex-foundation/umi-uploader-irys";
   });
 
   console.log(metadataUri);
-
-  createAndMint(umi, {
-    mint,
-    authority: umi.identity,
-    name: metadata.name,
-    symbol: metadata.symbol,
-    uri: metadataUri,
-    sellerFeeBasisPoints: percentAmount(0),
-    decimals: 9,
-    amount: 10_000,
-    tokenOwner: umi.identity.publicKey,
-    tokenStandard: TokenStandard.Fungible,
-  })
-    .sendAndConfirm(umi)
-    .then((tx) => {
-      console.log("token (", mint.publicKey, ") minted");
-      console.log(
-        "Transaction Hash:",
-        `https://explorer.solana.com/${tx.signature}?=cluster=devnet`
-      );
-    });
 })();

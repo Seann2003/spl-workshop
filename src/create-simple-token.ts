@@ -32,7 +32,7 @@ import { Keypair } from "@solana/web3.js";
     mint,
     tokenAccount.address,
     mintAuthority,
-    10_000 // Mint 10M tokens (adjust as needed)
+    10_000
   );
   console.log(`https://explorer.solana.com/transaction/${tx}?cluster=devnet`);
   return mint;
